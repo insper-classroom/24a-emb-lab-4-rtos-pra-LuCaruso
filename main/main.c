@@ -20,9 +20,8 @@ QueueHandle_t xQueueDistance;
 void pin_callback(uint gpio, uint32_t events) {
     // Captura tempo de inicio e fim do eco
     static uint32_t time_init;
-    uint32_t time_end;
     if (events ==0x4) {
-        time_end = time_us_32(); // A medição deve ser finalizada no falling edge do echo
+        uint32_t time_end = time_us_32(); // A medição deve ser finalizada no falling edge do echo
         uint32_t dt = time_end-time_init;
         xQueueReset(xQueueTime);
         xQueueSendFromISR(xQueueTime, &dt, NULL);
